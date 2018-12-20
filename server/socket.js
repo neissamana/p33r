@@ -1,3 +1,6 @@
+'use strict'
+const _ = require('underscore')
+
 const messages = {}
 
 module.exports = function (socket, io) {
@@ -31,14 +34,13 @@ module.exports = function (socket, io) {
   })
 
   function getUsers (roomName) {
-    const keys = Object.keys(io.sockets.adapter.rooms[roomName].sockets);
-    return keys.map((id) => {
+    return _.map(io.sockets.adapter.rooms[roomName].sockets, (_, id) => {
       return { id }
     })
   }
 
   function getMesssages (roomName) {
-    if (!messages[roomName]) {
+    if (_.isUndefined(messages[roomName])) {
       messages[roomName] = []
     }
     return messages[roomName]
@@ -48,3 +50,4 @@ module.exports = function (socket, io) {
     getMesssages(roomName).push(payload)
   }
 }
+
