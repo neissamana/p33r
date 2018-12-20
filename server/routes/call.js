@@ -3,19 +3,16 @@ const router = require('express').Router()
 const shortid = require('shortid')
 
 const config = {
-      "baseUrl": "",
-      "iceServers": [{
-                "url": "stun:stun.l.google.com:19302",
-                "urls": "stun:stun.l.google.com:19302"
-            }]
+  "iceServers": [{
+    "url": "stun:stun.l.google.com:19302",
+    "urls": "stun:stun.l.google.com:19302"
+  }]
 };
 
-
-const BASE_URL = config['baseUrl']
 const cfgIceServers = config['iceServers']
 
 router.get('/', (req, res) => {
-  res.redirect(`${BASE_URL}/call/${shortid.generate()}`)
+  res.redirect(`/call/${shortid.generate()}`)
 })
 
 router.get('/:callId', (req, res) => {
